@@ -8,6 +8,7 @@
     "start-server": "nodemon --watch server main.js -e html,js,css",
     "build-watch": "webpack -w",
     "start": "echo 'Running server for production - developers, use npm run start:dev for development' && node main",
+    "heroku-postbuild": "webpack -p",
     "seed": "node seed.js"
   },
   "keywords": [
@@ -49,6 +50,6 @@
     "style-loader": "^0.21.0",
     "volleyball": "^1.5.1",
     "webpack": "^4.8.3",
-    "webpack-cli": "^2.1.3"
+    "webpack-cli": "^2.1.5"
   }
 }
