@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import clonedeep from "clonedeep";
+import { cloneDeep } from "lodash";
 import ReactEcharts from "echarts-for-react";
 import echarts from "echarts";
 export default class AskBidSpread extends Component {
@@ -15,7 +15,7 @@ export default class AskBidSpread extends Component {
     // console.log(this.props);
     let axisData = new Date().toLocaleTimeString().replace(/^\D*/, "");
 
-    const option = clonedeep(this.state.option); // immutable
+    const option = cloneDeep(this.state.option); // immutable
     // const option = Object.assign({}, this.state.option);
     option.title.text =
       "Maximum Inter-exchange Spread " + this.props.max + " BTC";
