@@ -41,9 +41,9 @@ class CryptoMatrix extends Component {
               <th>
                 <select>
                   <option value="BTC-LTC">BTC-LTC</option>
-                  <option value="saab">Saab</option>
-                  <option value="mercedes">Mercedes</option>
-                  <option value="audi">Audi</option>
+                  <option value="BTC-ETH">BTC-ETH</option>
+                  <option value="BTC-BNB">BTC-BNB</option>
+                  <option value="BTC-EOS">BTC-EOS</option>
                 </select>
                 {maxDiff && maxDiff}
               </th>
