@@ -12,13 +12,15 @@ class CryptoMatrix extends Component {
 
   componentDidMount() {
     this.startTimer();
-
     //TODO: YOU ADDED LTC BTC BECAUSE YOU WANTED TO DO THE DROPDOWN MENU BUT INSTEAD ITS CAUSING ERRORS< JUST GO BACK TO HARDCODING IT IN THE BACKEND FOR IT TO WORK
-    this.props.getCrypto("LTCBTC");
+    this.props.getCrypto("LTC");
   }
 
-  startTimer() {
-    setInterval(() => this.props.getCrypto("LTCBTC"), 5000);
+
+  startTimer(pair = 'ETH') {
+    console.log(pair, 'PAIR')
+    window.refreshIntervalId
+    setInterval(() => this.props.getCrypto(pair), 5000);
   }
   render() {
     console.log("!!!!!!", this.props.Crypto);
@@ -40,6 +42,7 @@ class CryptoMatrix extends Component {
             <tr>
               <th>
                 <select>
+                  {/* onChange={this.startTimer('ZEC') */}
                   <option value="BTC-LTC">BTC-LTC</option>
                   <option value="BTC-ETH">BTC-ETH</option>
                   <option value="BTC-BNB">BTC-BNB</option>

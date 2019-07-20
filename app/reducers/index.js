@@ -17,9 +17,9 @@ export let getCryptoThunk = pair => {
   return async dispatch => {
     console.log(pair);
     const binance = await Axios.get(`/api/binance/${pair}`);
-    const bittrex = await Axios.get("/api/bittrex");
-    const kucoin = await Axios.get("/api/kucoin");
-    const polo = await Axios.get("/api/polo");
+    const bittrex = await Axios.get(`/api/bittrex/${pair}`);
+    const kucoin = await Axios.get(`/api/kucoin/${pair}`);
+    const polo = await Axios.get(`/api/polo/${pair}`);
     // console.log(data); instead of all at once can hyou do one at a time?
     const allExchange = {
       binance: binance.data,

@@ -10,11 +10,12 @@ const Axios = require("axios");
 //   console.log(data);
 // });
 //LTCBTC for binance format
+//IDEX FORMAT: https://api.idex.market/returnTicker?market=ETH_DENT
 router.get("/binance/:pair", async (req, res, next) => {
   try {
     const pair = req.params.pair;
     const { data } = await Axios.get(
-      `https://api.binance.com/api/v1/depth?symbol=${pair}`
+      `https://api.binance.com/api/v1/depth?symbol=${pair}BTC`
     );
     const newData = { ask: data.asks[0][0], bid: data.bids[0][0] };
     console.log("!!!!", newData);
@@ -25,9 +26,11 @@ router.get("/binance/:pair", async (req, res, next) => {
   }
 });
 
-router.get("/bittrex", async (req, res, next) => {
+router.get("/bittrex/:pair", async (req, res, next) => {
+  const pair = req.params.pair;
+
   const { data } = await Axios.get(
-    "https://api.bittrex.com/api/v1.1/public/getorderbook?market=BTC-LTC&type=both"
+    `https://api.bittrex.com/api/v1.1/public/getorderbook?market=BTC-${pair}&type=both`
   );
   const newData = {
     ask: data.result.sell[0].Rate,
@@ -37,9 +40,11 @@ router.get("/bittrex", async (req, res, next) => {
   res.send(newData);
 });
 
-router.get("/kucoin", async (req, res, next) => {
+router.get("/kucoin/:pair", async (req, res, next) => {
+  const pair = req.params.pair;
+
   const { data } = await Axios.get(
-    "https://api.kucoin.com/api/v1/market/orderbook/level2_100?symbol=LTC-BTC"
+    `https://api.kucoin.com/api/v1/market/orderbook/level2_100?symbol=${pair}-BTC`
   );
   const newData = {
     ask: data.data.asks[0][0],
@@ -49,9 +54,11 @@ router.get("/kucoin", async (req, res, next) => {
 });
 //https://poloniex.com/public?command=returnOrderBook&currencyPair=BTC_ETH&depth=1
 
-router.get("/polo", async (req, res, next) => {
+router.get("/polo/:pair", async (req, res, next) => {
+  const pair = req.params.pair;
+
   const { data } = await Axios.get(
-    "https://poloniex.com/public?command=returnOrderBook&currencyPair=BTC_LTC&depth=1"
+    `https://poloniex.com/public?command=returnOrderBook&currencyPair=BTC_${pair}&depth=1`
   );
   const newData = {
     ask: data.asks[0][0],
