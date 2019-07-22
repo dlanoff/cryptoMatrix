@@ -7,20 +7,32 @@ class CryptoMatrix extends Component {
     super();
     state: {
       currentCrypto: [];
+      started: true;
     }
   }
 
   componentDidMount() {
-    this.startTimer();
+    // this.startTimer();
     //TODO: YOU ADDED LTC BTC BECAUSE YOU WANTED TO DO THE DROPDOWN MENU BUT INSTEAD ITS CAUSING ERRORS< JUST GO BACK TO HARDCODING IT IN THE BACKEND FOR IT TO WORK
-    this.props.getCrypto("LTC");
+    // this.props.getCrypto("LTC");
   }
 
 
-  startTimer(pair = 'ETH') {
-    console.log(pair, 'PAIR')
-    window.refreshIntervalId
-    setInterval(() => this.props.getCrypto(pair), 5000);
+  startTimer(start = false) {
+
+    if (start === true) {
+      clearInterval(test)
+      console.log('CLEARED')
+      start = false;
+    }
+    var test = setInterval(() => this.getCrypto(), 5000);
+  }
+  change(event) {
+    this.setState({ value: event.target.value });
+  }
+  getCrypto() {
+    console.log('get crypto separate function')
+    this.props.getCrypto('ZEC')
   }
   render() {
     console.log("!!!!!!", this.props.Crypto);
@@ -35,14 +47,14 @@ class CryptoMatrix extends Component {
     }
 
     //TODO: START HERE
+    // onChange={this.change} value={this.state.value}
     return (
       <div>
         <table className="outerTable">
           <thead>
             <tr>
               <th>
-                <select>
-                  {/* onChange={this.startTimer('ZEC') */}
+                <select onChange={() => this.startTimer(true)}>
                   <option value="BTC-LTC">BTC-LTC</option>
                   <option value="BTC-ETH">BTC-ETH</option>
                   <option value="BTC-BNB">BTC-BNB</option>

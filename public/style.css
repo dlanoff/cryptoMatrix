@@ -47,7 +47,7 @@ table .inner {
   border: 0px;
 }
 th {
-  background: rgb(31, 233, 48);
+  background: rgb(124, 43, 255);
   height: 54px;
   width: 25%;
   font-weight: lighter;
@@ -70,7 +70,7 @@ td {
 }
 
 td :hover {
-  box-shadow: 0 1px 0 steelblue;
+  box-shadow: 0 1px 0 rgb(157, 81, 223);
   border: 1px solid rgba(255, 255, 255, 0.9);
 }
 
