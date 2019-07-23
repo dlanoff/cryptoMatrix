@@ -21,22 +21,22 @@ class CryptoMatrix extends Component {
   }
 
 
-  startTimer(start = false) {
-
+  startTimer(start = false, pair) {
+    console.log('PAIR!!!!')
     if (start === true) {
       clearInterval(test)
       console.log('CLEARED')
       start = false;
     }
-    var test = setInterval(() => this.props.getCrypto('ZEC'), 5000);
+    var test = setInterval(() => this.props.getCrypto(pair), 5000);
   }
   handleChange = (event) => {
     this.setState({ value: event.target.value });
     console.log('EVENT CHANGE:!!!!!!!!!!!!!!', event.target.value)
-    this.startTimer(true)
+    this.startTimer(true, event.target.value)
   }
   render() {
-    console.log("!!!!!!", this.props.Crypto);
+    // console.log("!!!!!!", this.props.Crypto);
     const { binance, kucoin, bittrex, polo } = this.props.Crypto;
     let maxDiff;
     if (binance && kucoin && bittrex && polo) {
