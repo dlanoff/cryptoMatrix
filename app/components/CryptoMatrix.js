@@ -4,17 +4,20 @@ import { connect } from "react-redux";
 import AskBidSpread from "./AskBidSpread";
 class CryptoMatrix extends Component {
   constructor() {
-    super();
-    state: {
-      currentCrypto: [];
-      started: true;
+    super()
+    this.state = {
+      currentCrypto: [],
+      started: true,
+      value: 'ZEC'
     }
+
   }
 
   componentDidMount() {
     // this.startTimer();
     //TODO: YOU ADDED LTC BTC BECAUSE YOU WANTED TO DO THE DROPDOWN MENU BUT INSTEAD ITS CAUSING ERRORS< JUST GO BACK TO HARDCODING IT IN THE BACKEND FOR IT TO WORK
     // this.props.getCrypto("LTC");
+    //
   }
 
 
@@ -25,14 +28,12 @@ class CryptoMatrix extends Component {
       console.log('CLEARED')
       start = false;
     }
-    var test = setInterval(() => this.getCrypto(), 5000);
+    var test = setInterval(() => this.props.getCrypto('ZEC'), 5000);
   }
-  change(event) {
+  handleChange = (event) => {
     this.setState({ value: event.target.value });
-  }
-  getCrypto() {
-    console.log('get crypto separate function')
-    this.props.getCrypto('ZEC')
+    console.log('EVENT CHANGE:!!!!!!!!!!!!!!', event.target.value)
+    this.startTimer(true)
   }
   render() {
     console.log("!!!!!!", this.props.Crypto);
@@ -54,11 +55,10 @@ class CryptoMatrix extends Component {
           <thead>
             <tr>
               <th>
-                <select onChange={() => this.startTimer(true)}>
-                  <option value="BTC-LTC">BTC-LTC</option>
-                  <option value="BTC-ETH">BTC-ETH</option>
-                  <option value="BTC-BNB">BTC-BNB</option>
-                  <option value="BTC-EOS">BTC-EOS</option>
+                <select value={this.state && this.state.value} onChange={this.handleChange}>
+                  <option value="LTC">LTC</option>
+                  <option value="ETH">BTC-ETH</option>
+                  <option value="ZEC">BTC-ZEC</option>
                 </select>
                 {maxDiff && maxDiff}
               </th>
