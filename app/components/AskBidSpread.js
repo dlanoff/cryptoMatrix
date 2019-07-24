@@ -12,13 +12,13 @@ export default class AskBidSpread extends Component {
   getInitialState = () => ({ option: this.getOption() });
 
   fetchNewDate = () => {
-    // console.log(this.props);
+    console.log(this.props);
     let axisData = new Date().toLocaleTimeString().replace(/^\D*/, "");
 
     const option = cloneDeep(this.state.option); // immutable
     // const option = Object.assign({}, this.state.option);
     option.title.text =
-      "Maximum Inter-exchange Spread " + this.props.max + " BTC";
+      this.props.pair + ": " + "Maximum Inter-exchange Spread " + this.props.max + " BTC";
     let data0 = option.series[0].data;
     // let data1 = option.series[1].data;
     data0.shift();
@@ -52,7 +52,7 @@ export default class AskBidSpread extends Component {
   getOption = () => ({
     backgroundColor: "black",
     title: {
-      text: "航线上座率分析",
+      text: "MaxSpread",
       textStyle: {
         fontWeight: "normal",
         fontSize: 16,
@@ -73,7 +73,7 @@ export default class AskBidSpread extends Component {
       itemWidth: 14,
       itemHeight: 5,
       itemGap: 13,
-      data: ["南宁-曼芭", "桂林-曼芭", "南宁-甲米"],
+      data: ["MaxSpread", "桂林-曼芭", "南宁-甲米"],
       right: "4%",
       textStyle: {
         fontSize: 12,
@@ -96,7 +96,7 @@ export default class AskBidSpread extends Component {
             color: "#57617B"
           }
         },
-        data: (function() {
+        data: (function () {
           let now = new Date();
           let res = [];
           let len = 50;
@@ -111,7 +111,7 @@ export default class AskBidSpread extends Component {
       {
         type: "category",
         boundaryGap: true,
-        data: (function() {
+        data: (function () {
           let res = [];
           let len = 50;
           while (len--) {
@@ -147,7 +147,7 @@ export default class AskBidSpread extends Component {
     ],
     series: [
       {
-        name: "南宁-曼芭",
+        name: "MaxSpread",
         type: "line",
         smooth: true,
         lineStyle: {
@@ -183,7 +183,7 @@ export default class AskBidSpread extends Component {
             color: "rgb(137,189,27)"
           }
         },
-        data: (function() {
+        data: (function () {
           let res = [];
           let len = 50;
           while (len--) {

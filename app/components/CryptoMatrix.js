@@ -230,7 +230,7 @@ class CryptoMatrix extends Component {
           </tbody>
         </table>
         )
-        <AskBidSpread max={maxDiff} />
+        <AskBidSpread max={maxDiff} pair={this.state.value} />
       </div>
     );
   }
