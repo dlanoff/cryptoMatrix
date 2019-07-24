@@ -9,7 +9,8 @@ class CryptoMatrix extends Component {
       currentCrypto: [],
       started: true,
       value: 'ZEC',
-      intervalId: ''
+      intervalId: '',
+      reset: false
     }
 
   }
@@ -23,19 +24,21 @@ class CryptoMatrix extends Component {
 
 
   startTimer(start = false, pair = 'ZEC') {
-    console.log('PAIR!!!!')
-    if (start === true) {
-      console.log('CLEARED')
-      start = false;
-    }
-    var intervalId = setInterval(() => this.props.getCrypto(pair), 5000);
+    console.log('CLEARED')
+
+    var intervalId = setInterval(() => this.props.getCrypto(pair), 1000);
     this.setState({ intervalId: intervalId })
+    setTimeout(() => {
+      this.setState({ reset: false })
+    }, 2000)
   }
   handleChange = (event) => {
     clearInterval(this.state.intervalId)
     this.setState({ value: event.target.value });
+    this.setState({ reset: true })
     console.log('EVENT CHANGE:!!!!!!!!!!!!!!', event.target.value)
     this.startTimer(true, event.target.value)
+
   }
   render() {
     // console.log("!!!!!!", this.props.Crypto);
@@ -58,7 +61,7 @@ class CryptoMatrix extends Component {
             <tr>
               <th>
                 <select value={this.state && this.state.value} onChange={this.handleChange}>
-                  <option value="LTC">LTC</option>
+                  <option value="LTC">BTC-LTC</option>
                   <option value="ETH">BTC-ETH</option>
                   <option value="ZEC">BTC-ZEC</option>
                 </select>
@@ -230,7 +233,7 @@ class CryptoMatrix extends Component {
           </tbody>
         </table>
         )
-        <AskBidSpread max={maxDiff} pair={this.state.value} />
+        <AskBidSpread max={maxDiff} pair={this.state.value} reset={this.state.reset} />
       </div>
     );
   }

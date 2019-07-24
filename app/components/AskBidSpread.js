@@ -21,8 +21,13 @@ export default class AskBidSpread extends Component {
       this.props.pair + ": " + "Maximum Inter-exchange Spread " + this.props.max + " BTC";
     let data0 = option.series[0].data;
     // let data1 = option.series[1].data;
+    let newArr = []
+    newArr = Array(50).fill(0);                // [4, 4, 4]
+
     data0.shift();
     data0.push(this.props.max);
+
+
     // data1.shift();
     // data1.push((Math.random() * 10 + 5).toFixed(1) - 0);
 
@@ -30,6 +35,13 @@ export default class AskBidSpread extends Component {
     option.xAxis[0].data.push(axisData);
     option.xAxis[1].data.shift();
     option.xAxis[1].data.push(this.count++);
+    if (this.props.reset === true) {
+      for (let i = 0; i < 51; i++) {
+        data0.shift();
+        data0.push(0);
+      }
+      console.log('RESET!!!!!!!!!!!!!!!!!!')
+    }
 
     this.setState({
       option
@@ -189,6 +201,7 @@ export default class AskBidSpread extends Component {
           while (len--) {
             res.push(0);
           }
+
           return res;
         })()
       }
