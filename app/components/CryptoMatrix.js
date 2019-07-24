@@ -8,7 +8,8 @@ class CryptoMatrix extends Component {
     this.state = {
       currentCrypto: [],
       started: true,
-      value: 'ZEC'
+      value: 'ZEC',
+      intervalId: ''
     }
 
   }
@@ -24,13 +25,14 @@ class CryptoMatrix extends Component {
   startTimer(start = false, pair) {
     console.log('PAIR!!!!')
     if (start === true) {
-      clearInterval(test)
       console.log('CLEARED')
       start = false;
     }
-    var test = setInterval(() => this.props.getCrypto(pair), 5000);
+    var intervalId = setInterval(() => this.props.getCrypto(pair), 5000);
+    this.setState({ intervalId: intervalId })
   }
   handleChange = (event) => {
+    clearInterval(this.state.intervalId)
     this.setState({ value: event.target.value });
     console.log('EVENT CHANGE:!!!!!!!!!!!!!!', event.target.value)
     this.startTimer(true, event.target.value)
