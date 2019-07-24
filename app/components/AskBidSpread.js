@@ -209,7 +209,7 @@ export default class AskBidSpread extends Component {
           />
 
           <pre>
-            <code>{code}</code>
+            {/* <code>{code}</code> */}
           </pre>
         </div>
       </div>
