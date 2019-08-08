@@ -12,12 +12,10 @@ class CryptoMatrix extends Component {
       intervalId: '',
       reset: false
     }
-
   }
 
   componentDidMount() {
     this.startTimer();
-    //TODO: YOU ADDED LTC BTC BECAUSE YOU WANTED TO DO THE DROPDOWN MENU BUT INSTEAD ITS CAUSING ERRORS< JUST GO BACK TO HARDCODING IT IN THE BACKEND FOR IT TO WORK
     this.props.getCrypto("ZEC");
     //
   }
@@ -26,7 +24,7 @@ class CryptoMatrix extends Component {
   startTimer(start = false, pair = 'ZEC') {
     console.log('CLEARED')
 
-    var intervalId = setInterval(() => this.props.getCrypto(pair), 1000);
+    var intervalId = setInterval(() => this.props.getCrypto(pair), 2000);
     this.setState({ intervalId: intervalId })
     setTimeout(() => {
       this.setState({ reset: false })
@@ -44,12 +42,36 @@ class CryptoMatrix extends Component {
     // console.log("!!!!!!", this.props.Crypto);
     const { binance, kucoin, bittrex, polo } = this.props.Crypto;
     let maxDiff;
+    let percentDiff;
     if (binance && kucoin && bittrex && polo) {
+      //calculate minimum Bid
+      //*** */
+      let bids = { Binance: binance.bid, Kucoin: kucoin.bid, Bittrex: bittrex.bid, Polo: polo.bid }
+      let currMin = Infinity;
+      for (let bid in bids) {
+        console.log(bids[bid], bid)
+        if (bids[bid] < currMin) currMin = [bids[bid], bid]
+      }
+      //Calculate maximum Ask
+      let currMax = -Infinity;
+      let asks = { Binance: binance.ask, Kucoin: kucoin.ask, Bittrex: bittrex.ask, Polo: polo.ask }
+      for (let ask in asks) {
+        console.log(asks[ask], ask, 'CURRMAX!!!!', console.log(currMax))
+        //TODO: Not correclty evaluating currMax, staying as -infinity
+        if (asks[ask] >= currMax) {
+          currMax = [asks[ask], ask]
+          // console.log('here')
+        }
+      }
       const bidArr = Math.min(binance.bid, kucoin.bid, bittrex.bid, polo.bid);
       const askArr = Math.max(binance.ask, kucoin.ask, bittrex.ask, polo.ask);
       maxDiff = askArr - bidArr;
       maxDiff = maxDiff.toFixed(6);
-      console.log("max Diff", maxDiff);
+      percentDiff = ((1 - (bidArr / askArr)) * 100).toFixed(4)
+
+      console.log('PERCENT DIFF: ', percentDiff, "max Diff", maxDiff, 'bid :', bidArr, 'ask: ', askArr);
+      //0.16%	0.26% [.42 percent for kraken + .02 for opening, .02 per 4 hours  .46 total] .46 + .2 for kucoin = .66 |
+      // console.log('PERCENT DIFF: ', percentDiff, "max Diff", maxDiff, bidArr, 'CURRMIN', currMax, 'CURRMAX');
     }
 
     //TODO: START HERE
@@ -64,6 +86,9 @@ class CryptoMatrix extends Component {
                   <option value="LTC">BTC-LTC</option>
                   <option value="ETH">BTC-ETH</option>
                   <option value="ZEC">BTC-ZEC</option>
+                  <option value="XRP">BTC-XRP</option>
+                  <option value="ETC">BTC-ETC</option>
+                  <option value="XMR">BTC-XMR</option>
                 </select>
                 {maxDiff && maxDiff}
               </th>
@@ -233,7 +258,7 @@ class CryptoMatrix extends Component {
           </tbody>
         </table>
         )
-        <AskBidSpread max={maxDiff} pair={this.state.value} reset={this.state.reset} />
+        <AskBidSpread max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
       </div>
     );
   }

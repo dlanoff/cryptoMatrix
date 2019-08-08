@@ -12,6 +12,7 @@ const Axios = require("axios");
 //LTCBTC for binance format
 //IDEX FORMAT: https://api.idex.market/returnTicker?market=ETH_DENT
 //BITMEX FORMAT: https://www.bitmex.com/api/v1/orderBook/L2?symbol=ETH
+//https://api.kraken.com/0/public/Ticker?pair=XXMRXXBT
 router.get("/binance/:pair", async (req, res, next) => {
   try {
     const pair = req.params.pair;
@@ -21,6 +22,19 @@ router.get("/binance/:pair", async (req, res, next) => {
     const newData = { ask: data.asks[0][0], bid: data.bids[0][0] };
     console.log("!!!!", newData);
     // console.log(newData, "!!!!!!!!!!!!!!!!");
+    res.send(newData);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/kraken/:pair", async (req, res, next) => {
+  try {
+    const pair = req.params.pair;
+    const { data } = await Axios.get(
+      `https://api.kraken.com/0/public/Ticker?pair=X${pair}XXBT`
+    );
+    const newData = { ask: data.result[`X${pair}XXBT`].a[0], bid: data.result[`X${pair}XXBT`].b[0] }
     res.send(newData);
   } catch (error) {
     next(error);
