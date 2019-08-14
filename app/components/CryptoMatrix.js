@@ -20,7 +20,8 @@ class CryptoMatrix extends Component {
     //
   }
 
-
+  //.65 => .35    //.185 low
+  //BId and ask switch => plot both! new metric? spread between reversed bid ask and vice versa
   startTimer(start = false, pair = 'ZEC') {
     console.log('CLEARED')
 
@@ -36,42 +37,51 @@ class CryptoMatrix extends Component {
     this.setState({ reset: true })
     console.log('EVENT CHANGE:!!!!!!!!!!!!!!', event.target.value)
     this.startTimer(true, event.target.value)
-
   }
   render() {
     // console.log("!!!!!!", this.props.Crypto);
-    const { binance, kucoin, bittrex, polo } = this.props.Crypto;
+    const { binance, kucoin, bittrex, polo, kraken } = this.props.Crypto;
     let maxDiff;
     let percentDiff;
-    if (binance && kucoin && bittrex && polo) {
-      //calculate minimum Bid
+    let currMin = Infinity;
+    let currMax = -Infinity
+    if (binance && kucoin && bittrex && polo && kraken) {
+      //calculate max Bid
       //*** */
-      let bids = { Binance: binance.bid, Kucoin: kucoin.bid, Bittrex: bittrex.bid, Polo: polo.bid }
-      let currMin = Infinity;
+      let bids = { Binance: binance.bid, Kucoin: kucoin.bid, Bittrex: bittrex.bid, Polo: polo.bid, Kraken: kraken.bid }
+
+
       for (let bid in bids) {
-        console.log(bids[bid], bid)
-        if (bids[bid] < currMin) currMin = [bids[bid], bid]
+        console.log('BIDS:', bids[bid], bid)
+        if (bids[bid] >= currMax) currMax = [bids[bid], bid]
       }
-      //Calculate maximum Ask
-      let currMax = -Infinity;
-      let asks = { Binance: binance.ask, Kucoin: kucoin.ask, Bittrex: bittrex.ask, Polo: polo.ask }
+
+      //Calculate min Ask
+      let asks = { Binance: binance.ask, Kucoin: kucoin.ask, Bittrex: bittrex.ask, Polo: polo.ask, Kraken: kraken.ask }
       for (let ask in asks) {
-        console.log(asks[ask], ask, 'CURRMAX!!!!', console.log(currMax))
-        //TODO: Not correclty evaluating currMax, staying as -infinity
-        if (asks[ask] >= currMax) {
-          currMax = [asks[ask], ask]
-          // console.log('here')
+        console.log('ASKS @ ASK', asks[ask], ask)
+        if (asks[ask] <= currMin) {
+          currMin = [asks[ask], ask]
         }
       }
-      const bidArr = Math.min(binance.bid, kucoin.bid, bittrex.bid, polo.bid);
-      const askArr = Math.max(binance.ask, kucoin.ask, bittrex.ask, polo.ask);
-      maxDiff = askArr - bidArr;
-      maxDiff = maxDiff.toFixed(6);
-      percentDiff = ((1 - (bidArr / askArr)) * 100).toFixed(4)
+      console.log('MAX:', currMax, 'MIN:', currMin)
 
-      console.log('PERCENT DIFF: ', percentDiff, "max Diff", maxDiff, 'bid :', bidArr, 'ask: ', askArr);
+      //BUY FOR 10 ASK
+      //SELL FOR 15 BID
+      //bid - ask
+      // const bidArr = Math.min(kucoin.bid);
+      const bidArr = Math.max(binance.bid, kucoin.bid, bittrex.bid, polo.bid, kraken.bid);
+      const askArr = Math.min(binance.ask, kucoin.ask, bittrex.ask, polo.ask, kraken.ask);
+      const krakenAskArr = kraken.ask
+
+      maxDiff = bidArr - askArr;
+      maxDiff = maxDiff.toFixed(6);
+      percentDiff = ((1 - (askArr / bidArr)) * 100).toFixed(6)
+
+      console.log('PERCENT DIFF: ', percentDiff, "max Diff", maxDiff, 'bid :', bidArr, 'AAAsk: ', askArr);
       //0.16%	0.26% [.42 percent for kraken + .02 for opening, .02 per 4 hours  .46 total] .46 + .2 for kucoin = .66 |
       // console.log('PERCENT DIFF: ', percentDiff, "max Diff", maxDiff, bidArr, 'CURRMIN', currMax, 'CURRMAX');
+
     }
 
     //TODO: START HERE
@@ -108,14 +118,14 @@ class CryptoMatrix extends Component {
                 <table className="inner">
                   <thead>
                     <tr>
-                      <th>Buy Bid Binance: {binance && binance.bid}</th>
+                      <th>Bid Binance: {binance && binance.bid}</th>
                       <th className="selected">
                         SPREAD:{" "}
                         {binance &&
                           kucoin &&
-                          (kucoin.ask - binance.bid).toFixed(6)}
+                          (kucoin.bid - binance.ask).toFixed(6)}
                       </th>
-                      <th>Sell Ask kucoin: {kucoin && kucoin.ask}</th>
+                      <th>Ask kucoin: {kucoin && kucoin.ask}</th>
                     </tr>
                   </thead>
                 </table>
@@ -124,14 +134,14 @@ class CryptoMatrix extends Component {
                 <table className="inner">
                   <thead>
                     <tr>
-                      <th>Buy Bid Binance: {binance && binance.bid}</th>
+                      <th>Bid Binance: {binance && binance.bid}</th>
                       <th className="selected">
                         SPREAD:{" "}
                         {binance &&
                           kucoin &&
-                          (bittrex.ask - binance.bid).toFixed(6)}
+                          (bittrex.bid - binance.ask).toFixed(6)}
                       </th>
-                      <th>Sell Ask bittrex: {bittrex && bittrex.ask}</th>
+                      <th>Ask bittrex: {bittrex && bittrex.ask}</th>
                     </tr>
                   </thead>
                 </table>
@@ -140,14 +150,14 @@ class CryptoMatrix extends Component {
                 <table className="inner">
                   <thead>
                     <tr>
-                      <th>Buy Bid Binance: {binance && binance.bid}</th>
+                      <th>Bid Binance: {binance && binance.bid}</th>
                       <th className="selected">
                         SPREAD:{" "}
                         {binance &&
                           kucoin &&
-                          (polo.ask - binance.bid).toFixed(6)}
+                          (polo.bid - binance.ask).toFixed(6)}
                       </th>
-                      <th>Sell Ask polo: {polo && polo.ask}</th>
+                      <th>Ask polo: {polo && polo.ask}</th>
                     </tr>
                   </thead>
                 </table>
@@ -159,8 +169,8 @@ class CryptoMatrix extends Component {
                 <table className="inner">
                   <thead>
                     <tr>
-                      <th>Buy Bid Ku: {kucoin && kucoin.bid}</th>
-                      <th>Sell Ask Binance: {binance && binance.ask}</th>
+                      <th>Bid Ku: {kucoin && kucoin.bid}</th>
+                      <th>Ask Binance: {binance && binance.ask}</th>
                     </tr>
                   </thead>
                 </table>
@@ -170,8 +180,8 @@ class CryptoMatrix extends Component {
                 <table className="inner">
                   <thead>
                     <tr>
-                      <th>Buy Bid Ku: {kucoin && kucoin.bid}</th>
-                      <th>Sell Ask Bittrex: {bittrex && bittrex.ask}</th>
+                      <th>Bid Ku: {kucoin && kucoin.bid}</th>
+                      <th>Ask Bittrex: {bittrex && bittrex.ask}</th>
                     </tr>
                   </thead>
                 </table>
@@ -180,8 +190,8 @@ class CryptoMatrix extends Component {
                 <table className="inner">
                   <thead>
                     <tr>
-                      <th>Buy Bid Ku: {kucoin && kucoin.bid}</th>
-                      <th>Sell Ask Polo: {polo && polo.ask}</th>
+                      <th>Bid Ku: {kucoin && kucoin.bid}</th>
+                      <th>Ask Polo: {polo && polo.ask}</th>
                     </tr>
                   </thead>
                 </table>
@@ -193,8 +203,8 @@ class CryptoMatrix extends Component {
                 <table className="inner">
                   <thead>
                     <tr>
-                      <th>Buy Bid Bittrex: {bittrex && bittrex.bid}</th>
-                      <th>Sell Ask Binance: {binance && binance.ask}</th>
+                      <th>Bid Bittrex: {bittrex && bittrex.bid}</th>
+                      <th>Ask Binance: {binance && binance.ask}</th>
                     </tr>
                   </thead>
                 </table>
@@ -203,8 +213,8 @@ class CryptoMatrix extends Component {
                 <table className="inner">
                   <thead>
                     <tr>
-                      <th>Buy Bid Bittrex: {bittrex && bittrex.bid}</th>
-                      <th>Sell Ask Ku: {kucoin && kucoin.ask}</th>
+                      <th>Bid Bittrex: {bittrex && bittrex.bid}</th>
+                      <th>Ask Kucoin: {kucoin && kucoin.ask}</th>
                     </tr>
                   </thead>
                 </table>
@@ -214,8 +224,8 @@ class CryptoMatrix extends Component {
                 <table className="inner">
                   <thead>
                     <tr>
-                      <th>Buy Bid Bittrex: {bittrex && bittrex.bid}</th>
-                      <th>Sell Ask Polo: {polo && polo.ask}</th>
+                      <th>Bid Bittrex: {bittrex && bittrex.bid}</th>
+                      <th>Ask Polo: {polo && polo.ask}</th>
                     </tr>
                   </thead>
                 </table>
@@ -227,8 +237,8 @@ class CryptoMatrix extends Component {
                 <table className="inner">
                   <thead>
                     <tr>
-                      <th>Buy Bid polo: {polo && polo.bid}</th>
-                      <th>Sell Ask Bi: {binance && binance.ask}</th>
+                      <th>Bid polo: {polo && polo.bid}</th>
+                      <th>Ask Bi: {binance && binance.ask}</th>
                     </tr>
                   </thead>
                 </table>
@@ -237,8 +247,8 @@ class CryptoMatrix extends Component {
                 <table className="inner">
                   <thead>
                     <tr>
-                      <th>Buy Bid polo: {polo && polo.bid}</th>
-                      <th>Sell Ask Ku: {kucoin && kucoin.ask}</th>
+                      <th>Bid polo: {polo && polo.bid}</th>
+                      <th>Ask Ku: {kucoin && kucoin.ask}</th>
                     </tr>
                   </thead>
                 </table>
@@ -247,18 +257,18 @@ class CryptoMatrix extends Component {
                 <table className="inner">
                   <thead>
                     <tr>
-                      <th>Buy Bid polo: {polo && polo.bid}</th>
-                      <th>Sell Ask bittrex: {bittrex && bittrex.ask}</th>
+                      <th>Bid polo: {polo && polo.bid}</th>
+                      <th>Ask bittrex: {bittrex && bittrex.ask}</th>
                     </tr>
                   </thead>
                 </table>
               </td>
-              <td className="blackOut">X</td>
+              <td className="blackOut">Inner Spread - </td>
             </tr>
           </tbody>
         </table>
         )
-        <AskBidSpread max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
+        <AskBidSpread currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
       </div>
     );
   }

@@ -18,7 +18,8 @@ export default class AskBidSpread extends Component {
     const option = cloneDeep(this.state.option); // immutable
     // const option = Object.assign({}, this.state.option);
     option.title.text =
-      this.props.pair + ": " + "Maximum Inter-exchange Spread " + this.props.percent + " BTC";
+      this.props.pair + ": " + "Maximum Inter-exchange Spread " + this.props.percent + "% || " + this.props.max + " BTC" + ' || ' + 'Minimum Ask Exchange: ' + this.props.currMin[1] + ' || ', +
+      'Maximum Bid Exchange: ' + this.props.currMax
     let data0 = option.series[0].data;
     // let data1 = option.series[1].data;
     // let newArr = []
