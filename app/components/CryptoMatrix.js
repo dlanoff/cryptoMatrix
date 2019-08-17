@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { getCryptoThunk } from "../reducers/index"; //TODO, MAKE THUNK
 import { connect } from "react-redux";
 import AskBidSpread from "./AskBidSpread";
+import InterexchangeSpread from "./InterexchangeSpread"
+
 class CryptoMatrix extends Component {
   constructor() {
     super()
@@ -269,6 +271,7 @@ class CryptoMatrix extends Component {
         </table>
         )
         <AskBidSpread currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
+        <InterexchangeSpread currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
       </div>
     );
   }
