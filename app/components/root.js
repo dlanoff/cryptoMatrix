@@ -8,6 +8,7 @@ const Root = () => {
       <nav />
       <main>
         <h1>Welcome to the Crypto Matrix</h1>
+        <h3>Sourcecode available at: <a href="https://github.com/dlanoff/cryptoMatrix">https://github.com/dlanoff/cryptoMatrix</a></h3>
         <CryptoMatrix />
       </main>
     </div>

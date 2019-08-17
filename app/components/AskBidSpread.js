@@ -8,9 +8,7 @@ export default class AskBidSpread extends Component {
     this.state = this.getInitialState();
   }
   timeTicket = null;
-  count = 51;
   getInitialState = () => ({ option: this.getOption() });
-
   fetchNewDate = () => {
     console.log(this.props);
     let axisData = new Date().toLocaleTimeString().replace(/^\D*/, "");
@@ -28,14 +26,8 @@ export default class AskBidSpread extends Component {
     data0.shift();
     data0.push(this.props.percent);
 
-
-    // data1.shift();
-    // data1.push((Math.random() * 10 + 5).toFixed(1) - 0);
-
     option.xAxis[0].data.shift();
     option.xAxis[0].data.push(axisData);
-    option.xAxis[1].data.shift();
-    option.xAxis[1].data.push(this.count++);
     if (this.props.reset === true) {
       for (let i = 0; i < 51; i++) {
         data0.shift();
@@ -120,18 +112,6 @@ export default class AskBidSpread extends Component {
           }
           return res;
         })()
-      },
-      {
-        type: "category",
-        boundaryGap: true,
-        data: (function () {
-          let res = [];
-          let len = 50;
-          while (len--) {
-            res.push(50 - len + 1);
-          }
-          return res;
-        })()
       }
     ],
     yAxis: [
@@ -202,7 +182,6 @@ export default class AskBidSpread extends Component {
           while (len--) {
             res.push(0);
           }
-
           return res;
         })()
       }

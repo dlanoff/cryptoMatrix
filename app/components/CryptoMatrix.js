@@ -47,10 +47,14 @@ class CryptoMatrix extends Component {
     let percentDiff;
     let currMin = Infinity;
     let currMax = -Infinity
+    let bidArr = []
+    let askArr = []
+    let asks;
+    let bids;
     if (binance && kucoin && bittrex && polo && kraken) {
       //calculate max Bid
       //*** */
-      let bids = { Binance: binance.bid, Kucoin: kucoin.bid, Bittrex: bittrex.bid, Polo: polo.bid, Kraken: kraken.bid }
+      bids = { Binance: binance.bid, Kucoin: kucoin.bid, Bittrex: bittrex.bid, Polo: polo.bid, Kraken: kraken.bid }
 
 
       for (let bid in bids) {
@@ -59,7 +63,7 @@ class CryptoMatrix extends Component {
       }
 
       //Calculate min Ask
-      let asks = { Binance: binance.ask, Kucoin: kucoin.ask, Bittrex: bittrex.ask, Polo: polo.ask, Kraken: kraken.ask }
+      asks = { Binance: binance.ask, Kucoin: kucoin.ask, Bittrex: bittrex.ask, Polo: polo.ask, Kraken: kraken.ask }
       for (let ask in asks) {
         console.log('ASKS @ ASK', asks[ask], ask)
         if (asks[ask] <= currMin) {
@@ -72,8 +76,8 @@ class CryptoMatrix extends Component {
       //SELL FOR 15 BID
       //bid - ask
       // const bidArr = Math.min(kucoin.bid);
-      const bidArr = Math.max(binance.bid, kucoin.bid, bittrex.bid, polo.bid, kraken.bid);
-      const askArr = Math.min(binance.ask, kucoin.ask, bittrex.ask, polo.ask, kraken.ask);
+      bidArr = Math.max(binance.bid, kucoin.bid, bittrex.bid, polo.bid, kraken.bid);
+      askArr = Math.min(binance.ask, kucoin.ask, bittrex.ask, polo.ask, kraken.ask);
       const krakenAskArr = kraken.ask
 
       maxDiff = bidArr - askArr;
@@ -271,7 +275,7 @@ class CryptoMatrix extends Component {
         </table>
         )
         <AskBidSpread currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
-        <InterexchangeSpread currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
+        <InterexchangeSpread bidArr={bids} askArr={asks} currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
       </div>
     );
   }
