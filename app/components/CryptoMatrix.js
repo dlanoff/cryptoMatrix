@@ -275,7 +275,15 @@ class CryptoMatrix extends Component {
         </table>
         )
         <AskBidSpread currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
-        <InterexchangeSpread bidArr={bids} askArr={asks} currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
+        <div className="bidsAndAsks">
+          <div className="innerbids">
+            <InterexchangeSpread bidArr={bids} text="Bids By Exchange" currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
+          </div>
+          <div className="innerbids">
+
+            <InterexchangeSpread bidArr={asks} text="Asks By Exchange" currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
+          </div>
+        </div>
       </div>
     );
   }

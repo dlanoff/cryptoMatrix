@@ -20,21 +20,21 @@ export default class AskBidSpread extends Component {
       this.props.pair + ": " + "Maximum Inter-exchange Spread " + this.props.percent + "% || " + this.props.max + " BTC" + ' || ' + 'Minimum Ask Exchange: ' + this.props.currMin[1] + ' || ', +
       'Maximum Bid Exchange: ' + this.props.currMax
 
-    let data0 = option.series[0].data;
-    let { bidArr, askArr } = this.props
-    data0.shift();
-    data0.push(this.props.bidArr.Binance);
-
-    let data1 = option.series[1].data;
-
-    data1.shift();
-    data1.push(this.props.bidArr.Polo);
+    //Binance Bids
+    let binanceBids = option.series[0].data;
+    binanceBids.shift();
+    binanceBids.push(this.props.bidArr.Binance);
 
 
-    let data2 = option.series[2].data;
+    let poloBids = option.series[1].data;
+    poloBids.shift();
+    poloBids.push(this.props.bidArr.Polo);
 
-    data2.shift();
-    data2.push(this.props.bidArr.Kraken);
+
+    let krakenBids = option.series[2].data;
+
+    krakenBids.shift();
+    krakenBids.push(this.props.bidArr.Kraken);
 
 
     option.xAxis[0].data.shift();
@@ -70,7 +70,7 @@ export default class AskBidSpread extends Component {
     color: ['#ffd285', '#ff733f', '#ec4863'],
 
     title: [{
-      text: 'BIDS BY EXCHANGE',
+      text: this.props.text,
       left: '1%',
       top: '6%',
       textStyle: {
@@ -89,8 +89,8 @@ export default class AskBidSpread extends Component {
       data: ['Binance', 'Poloniex', 'Kraken']
     },
     grid: {
-      left: '1%',
-      right: '35%',
+      left: '8%',
+      right: '8%',
       top: '16%',
       bottom: '6%',
       containLabel: true
