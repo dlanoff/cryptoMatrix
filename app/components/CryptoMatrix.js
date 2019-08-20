@@ -93,195 +93,200 @@ class CryptoMatrix extends Component {
     //TODO: START HERE
     // onChange={this.change} value={this.state.value}
     return (
-      <div>
-        <table className="outerTable">
-          <thead>
-            <tr>
-              <th>
-                <select value={this.state && this.state.value} onChange={this.handleChange}>
-                  <option value="LTC">BTC-LTC</option>
-                  <option value="ETH">BTC-ETH</option>
-                  <option value="ZEC">BTC-ZEC</option>
-                  <option value="XRP">BTC-XRP</option>
-                  <option value="ETC">BTC-ETC</option>
-                  <option value="XMR">BTC-XMR</option>
-                </select>
-                {maxDiff && maxDiff}
-              </th>
-              <th>BINANCE</th>
-              <th>KUCOIN</th>
-              <th>BITTREX</th>
-              <th>POLONIEX</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>BINANCE</td>
+      <div className="superClass">
+        <div className="bodyElem">
+          <table className="outerTable">
+            <thead>
+              <tr>
+                <th>
+                  <select value={this.state && this.state.value} onChange={this.handleChange}>
+                    <option value="LTC">BTC-LTC</option>
+                    <option value="ETH">BTC-ETH</option>
+                    <option value="ZEC">BTC-ZEC</option>
+                    <option value="XRP">BTC-XRP</option>
+                    <option value="ETC">BTC-ETC</option>
+                    <option value="XMR">BTC-XMR</option>
+                  </select>
+                  {maxDiff && maxDiff}
+                </th>
+                <th>BINANCE</th>
+                <th>KUCOIN</th>
+                <th>BITTREX</th>
+                <th>POLONIEX</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>BINANCE</td>
 
-              <td className="blackOut">X</td>
+                <td className="blackOut">X</td>
 
-              <td>
-                <table className="inner">
-                  <thead>
-                    <tr>
-                      <th>Bid Binance: {binance && binance.bid}</th>
-                      <th className="selected">
-                        SPREAD:{" "}
-                        {binance &&
-                          kucoin &&
-                          (kucoin.bid - binance.ask).toFixed(6)}
-                      </th>
-                      <th>Ask kucoin: {kucoin && kucoin.ask}</th>
-                    </tr>
-                  </thead>
-                </table>
-              </td>
-              <td>
-                <table className="inner">
-                  <thead>
-                    <tr>
-                      <th>Bid Binance: {binance && binance.bid}</th>
-                      <th className="selected">
-                        SPREAD:{" "}
-                        {binance &&
-                          kucoin &&
-                          (bittrex.bid - binance.ask).toFixed(6)}
-                      </th>
-                      <th>Ask bittrex: {bittrex && bittrex.ask}</th>
-                    </tr>
-                  </thead>
-                </table>
-              </td>
-              <td>
-                <table className="inner">
-                  <thead>
-                    <tr>
-                      <th>Bid Binance: {binance && binance.bid}</th>
-                      <th className="selected">
-                        SPREAD:{" "}
-                        {binance &&
-                          kucoin &&
-                          (polo.bid - binance.ask).toFixed(6)}
-                      </th>
-                      <th>Ask polo: {polo && polo.ask}</th>
-                    </tr>
-                  </thead>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <td>KUCOIN</td>
-              <td>
-                <table className="inner">
-                  <thead>
-                    <tr>
-                      <th>Bid Ku: {kucoin && kucoin.bid}</th>
-                      <th>Ask Binance: {binance && binance.ask}</th>
-                    </tr>
-                  </thead>
-                </table>
-              </td>
-              <td className="blackOut">X</td>
-              <td>
-                <table className="inner">
-                  <thead>
-                    <tr>
-                      <th>Bid Ku: {kucoin && kucoin.bid}</th>
-                      <th>Ask Bittrex: {bittrex && bittrex.ask}</th>
-                    </tr>
-                  </thead>
-                </table>
-              </td>
-              <td>
-                <table className="inner">
-                  <thead>
-                    <tr>
-                      <th>Bid Ku: {kucoin && kucoin.bid}</th>
-                      <th>Ask Polo: {polo && polo.ask}</th>
-                    </tr>
-                  </thead>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <td>BITTREX</td>
-              <td>
-                <table className="inner">
-                  <thead>
-                    <tr>
-                      <th>Bid Bittrex: {bittrex && bittrex.bid}</th>
-                      <th>Ask Binance: {binance && binance.ask}</th>
-                    </tr>
-                  </thead>
-                </table>
-              </td>
-              <td>
-                <table className="inner">
-                  <thead>
-                    <tr>
-                      <th>Bid Bittrex: {bittrex && bittrex.bid}</th>
-                      <th>Ask Kucoin: {kucoin && kucoin.ask}</th>
-                    </tr>
-                  </thead>
-                </table>
-              </td>
-              <td className="blackOut">X</td>
-              <td>
-                <table className="inner">
-                  <thead>
-                    <tr>
-                      <th>Bid Bittrex: {bittrex && bittrex.bid}</th>
-                      <th>Ask Polo: {polo && polo.ask}</th>
-                    </tr>
-                  </thead>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <td>POLONIEX</td>
-              <td>
-                <table className="inner">
-                  <thead>
-                    <tr>
-                      <th>Bid polo: {polo && polo.bid}</th>
-                      <th>Ask Bi: {binance && binance.ask}</th>
-                    </tr>
-                  </thead>
-                </table>
-              </td>
-              <td>
-                <table className="inner">
-                  <thead>
-                    <tr>
-                      <th>Bid polo: {polo && polo.bid}</th>
-                      <th>Ask Ku: {kucoin && kucoin.ask}</th>
-                    </tr>
-                  </thead>
-                </table>
-              </td>
-              <td>
-                <table className="inner">
-                  <thead>
-                    <tr>
-                      <th>Bid polo: {polo && polo.bid}</th>
-                      <th>Ask bittrex: {bittrex && bittrex.ask}</th>
-                    </tr>
-                  </thead>
-                </table>
-              </td>
-              <td className="blackOut">Inner Spread - </td>
-            </tr>
-          </tbody>
-        </table>
-        )
-        <AskBidSpread currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
-        <div className="bidsAndAsks">
-          <div className="innerbids">
-            <InterexchangeSpread bidArr={bids} text="Bids By Exchange" currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
-          </div>
-          <div className="innerbids">
-
-            <InterexchangeSpread bidArr={asks} text="Asks By Exchange" currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
+                <td>
+                  <table className="inner">
+                    <thead>
+                      <tr>
+                        <th>Bid Binance: {binance && binance.bid}</th>
+                        <th className="selected">
+                          SPREAD:{" "}
+                          {binance &&
+                            kucoin &&
+                            (kucoin.bid - binance.ask).toFixed(6)}
+                        </th>
+                        <th>Ask kucoin: {kucoin && kucoin.ask}</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </td>
+                <td>
+                  <table className="inner">
+                    <thead>
+                      <tr>
+                        <th>Bid Binance: {binance && binance.bid}</th>
+                        <th className="selected">
+                          SPREAD:{" "}
+                          {binance &&
+                            kucoin &&
+                            (bittrex.bid - binance.ask).toFixed(6)}
+                        </th>
+                        <th>Ask bittrex: {bittrex && bittrex.ask}</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </td>
+                <td>
+                  <table className="inner">
+                    <thead>
+                      <tr>
+                        <th>Bid Binance: {binance && binance.bid}</th>
+                        <th className="selected">
+                          SPREAD:{" "}
+                          {binance &&
+                            kucoin &&
+                            (polo.bid - binance.ask).toFixed(6)}
+                        </th>
+                        <th>Ask polo: {polo && polo.ask}</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td>KUCOIN</td>
+                <td>
+                  <table className="inner">
+                    <thead>
+                      <tr>
+                        <th>Bid Ku: {kucoin && kucoin.bid}</th>
+                        <th>Ask Binance: {binance && binance.ask}</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </td>
+                <td className="blackOut">X</td>
+                <td>
+                  <table className="inner">
+                    <thead>
+                      <tr>
+                        <th>Bid Ku: {kucoin && kucoin.bid}</th>
+                        <th>Ask Bittrex: {bittrex && bittrex.ask}</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </td>
+                <td>
+                  <table className="inner">
+                    <thead>
+                      <tr>
+                        <th>Bid Ku: {kucoin && kucoin.bid}</th>
+                        <th>Ask Polo: {polo && polo.ask}</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td>BITTREX</td>
+                <td>
+                  <table className="inner">
+                    <thead>
+                      <tr>
+                        <th>Bid Bittrex: {bittrex && bittrex.bid}</th>
+                        <th>Ask Binance: {binance && binance.ask}</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </td>
+                <td>
+                  <table className="inner">
+                    <thead>
+                      <tr>
+                        <th>Bid Bittrex: {bittrex && bittrex.bid}</th>
+                        <th>Ask Kucoin: {kucoin && kucoin.ask}</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </td>
+                <td className="blackOut">X</td>
+                <td>
+                  <table className="inner">
+                    <thead>
+                      <tr>
+                        <th>Bid Bittrex: {bittrex && bittrex.bid}</th>
+                        <th>Ask Polo: {polo && polo.ask}</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td>POLONIEX</td>
+                <td>
+                  <table className="inner">
+                    <thead>
+                      <tr>
+                        <th>Bid polo: {polo && polo.bid}</th>
+                        <th>Ask Bi: {binance && binance.ask}</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </td>
+                <td>
+                  <table className="inner">
+                    <thead>
+                      <tr>
+                        <th>Bid polo: {polo && polo.bid}</th>
+                        <th>Ask Ku: {kucoin && kucoin.ask}</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </td>
+                <td>
+                  <table className="inner">
+                    <thead>
+                      <tr>
+                        <th>Bid polo: {polo && polo.bid}</th>
+                        <th>Ask bittrex: {bittrex && bittrex.ask}</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </td>
+                <td className="blackOut">Inner Spread - </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br></br>
+        <div className="bodyElem" id="interexchange">
+          <AskBidSpread currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
+        </div>
+        <div className="bodyElem">
+          <div className="bidsAndAsks">
+            <div className="innerbids">
+              <InterexchangeSpread bidArr={bids} text="Bids By Exchange" currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
+            </div>
+            <div className="innerbids">
+              <InterexchangeSpread bidArr={asks} text="Asks By Exchange" currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
+            </div>
           </div>
         </div>
       </div>
