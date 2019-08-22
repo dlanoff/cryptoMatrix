@@ -94,5 +94,15 @@ router.get("/polo/:pair", async (req, res, next) => {
     next(error)
   }
 });
+router.get("/getmarquee", async (req, res, next) => {
+  try {
+    const { data } = await Axios.get(
+      `https://api.coinmarketcap.com/v1/ticker/?limit=20`
+    );
+    res.send(data);
+  } catch (error) {
+    next(error)
+  }
+});
 
 module.exports = router;

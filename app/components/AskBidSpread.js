@@ -10,7 +10,7 @@ export default class AskBidSpread extends Component {
   timeTicket = null;
   getInitialState = () => ({ option: this.getOption() });
   fetchNewDate = () => {
-    console.log(this.props);
+
     let axisData = new Date().toLocaleTimeString().replace(/^\D*/, "");
 
     const option = cloneDeep(this.state.option); // immutable
@@ -33,7 +33,7 @@ export default class AskBidSpread extends Component {
         data0.shift();
         data0.push(0);
       }
-      console.log('RESET!!!!!!!!!!!!!!!!!!')
+
     }
 
     this.setState({
@@ -107,7 +107,7 @@ export default class AskBidSpread extends Component {
           while (len--) {
             res.unshift(now.toLocaleTimeString().replace(/^\D*/, ""));
             now = new Date(now - 2000);
-            console.log(now);
+
           }
           return res;
         })()

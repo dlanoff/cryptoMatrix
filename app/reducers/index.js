@@ -1,15 +1,24 @@
 import Axios from "axios";
 
 const initialState = {
-  Crypto: []
+  Crypto: [],
+  marquee: []
 };
 
 const GET_CRYPTO = "GET_CRYPTO";
+const GET_MARQUEE = "GET_MARQUEE";
 
 export const getCrypto = pair => {
   return {
     type: GET_CRYPTO,
     pair
+  };
+};
+
+export const getMarquee = (payload) => {
+  return {
+    type: GET_MARQUEE,
+    payload
   };
 };
 
@@ -35,10 +44,20 @@ export let getCryptoThunk = pair => {
   };
 };
 
+export let getMarqueeThunk = () => {
+  return async dispatch => {
+    const marquee = await Axios.get('/api/getmarquee')
+    // console.log(marquee.data, 'DATAAAAA')
+    dispatch(getMarquee(marquee))
+  }
+}
+
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_CRYPTO:
       return { ...state, Crypto: action.pair };
+    case GET_MARQUEE:
+      return { ...state, marquee: action.payload }
     default:
       return state;
   }

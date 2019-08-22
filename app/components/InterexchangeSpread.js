@@ -11,15 +11,11 @@ export default class AskBidSpread extends Component {
   getInitialState = () => ({ option: this.getOption() });
 
   fetchNewDate = () => {
-    console.log(this.props, 'BIDARR IN COMPONENT');
     let axisData = new Date().toLocaleTimeString().replace(/^\D*/, "");
 
     const option = cloneDeep(this.state.option); // immutable
-    // const option = Object.assign({}, this.state.option);
     option.title.text =
-      this.props.pair + ": " + "Maximum Inter-exchange Spread " + this.props.percent + "% || " + this.props.max + " BTC" + ' || ' + 'Minimum Ask Exchange: ' + this.props.currMin[1] + ' || ', +
-      'Maximum Bid Exchange: ' + this.props.currMax
-
+      this.props.pair + ": " + "Maximum Inter-exchange Spread " + this.props.percent + "% , " + this.props.max + " BTC" + ' || '
     //Binance Bids
     let binanceBids = option.series[0].data;
     binanceBids.shift();
@@ -44,7 +40,6 @@ export default class AskBidSpread extends Component {
         data0.shift();
         data0.push(0);
       }
-      console.log('RESET!!!!!!!!!!!!!!!!!!')
     }
 
     this.setState({
@@ -117,7 +112,6 @@ export default class AskBidSpread extends Component {
           while (len--) {
             res.unshift(now.toLocaleTimeString().replace(/^\D*/, ""));
             now = new Date(now - 2000);
-            console.log(now);
           }
           return res;
         })()

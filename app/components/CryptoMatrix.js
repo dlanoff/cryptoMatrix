@@ -37,9 +37,10 @@ class CryptoMatrix extends Component {
     clearInterval(this.state.intervalId)
     this.setState({ value: event.target.value });
     this.setState({ reset: true })
-    console.log('EVENT CHANGE:!!!!!!!!!!!!!!', event.target.value)
+    // console.log('EVENT CHANGE:!!!!!!!!!!!!!!', event.target.value)
     this.startTimer(true, event.target.value)
   }
+
   render() {
     const { binance, kucoin, bittrex, polo, kraken } = this.props.Crypto;
     let maxDiff;
@@ -57,19 +58,19 @@ class CryptoMatrix extends Component {
 
 
       for (let bid in bids) {
-        console.log('BIDS:', bids[bid], bid)
+        // console.log('BIDS:', bids[bid], bid)
         if (bids[bid] >= currMax) currMax = [bids[bid], bid]
       }
 
       //Calculate min Ask
       asks = { Binance: binance.ask, Kucoin: kucoin.ask, Bittrex: bittrex.ask, Polo: polo.ask, Kraken: kraken.ask }
       for (let ask in asks) {
-        console.log('ASKS @ ASK', asks[ask], ask)
+        // console.log('ASKS @ ASK', asks[ask], ask)
         if (asks[ask] <= currMin) {
           currMin = [asks[ask], ask]
         }
       }
-      console.log('MAX:', currMax, 'MIN:', currMin)
+      // console.log('MAX:', currMax, 'MIN:', currMin)
 
       bidArr = Math.max(binance.bid, kucoin.bid, bittrex.bid, polo.bid, kraken.bid);
       askArr = Math.min(binance.ask, kucoin.ask, bittrex.ask, polo.ask, kraken.ask);
@@ -79,7 +80,7 @@ class CryptoMatrix extends Component {
       maxDiff = maxDiff.toFixed(6);
       percentDiff = ((1 - (askArr / bidArr)) * 100).toFixed(6)
 
-      console.log('PERCENT DIFF: ', percentDiff, "max Diff", maxDiff, 'bid :', bidArr, 'AAAsk: ', askArr);
+      // console.log('PERCENT DIFF: ', percentDiff, "max Diff", maxDiff, 'bid :', bidArr, 'AAAsk: ', askArr);
       // console.log('PERCENT DIFF: ', percentDiff, "max Diff", maxDiff, bidArr, 'CURRMIN', currMax, 'CURRMAX');
     }
 
@@ -269,7 +270,8 @@ class CryptoMatrix extends Component {
               </table>
             </div>
             <div>
-              <Info />
+              <Info currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
+
             </div>
           </div>
         </div>
