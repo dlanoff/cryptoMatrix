@@ -55,6 +55,7 @@ export default class AskBidSpread extends Component {
   }
 
   getOption = () => ({
+    height: '70%',
     backgroundColor: "black",
     title: {
       text: "MaxSpread",
@@ -197,7 +198,7 @@ export default class AskBidSpread extends Component {
           <ReactEcharts
             ref="echarts_react"
             option={this.state.option}
-            style={{ height: 400 }}
+            style={{ height: '30vh' }}
           />
 
           <pre>

@@ -37,7 +37,7 @@ class CryptoMatrix extends Component {
     clearInterval(this.state.intervalId)
     this.setState({ value: event.target.value });
     this.setState({ reset: true })
-    // console.log('EVENT CHANGE:!!!!!!!!!!!!!!', event.target.value)
+    console.log('EVENT CHANGE:!!!!!!!!!!!!!!', event, event.target.value)
     this.startTimer(true, event.target.value)
   }
 
@@ -89,6 +89,14 @@ class CryptoMatrix extends Component {
         <div className="bodyElem">
           <div className="bidsAndAsks">
             <div>
+              <div className="btn-group" onClick={this.handleChange}>
+                <button name="BTC-ETH" value="ETH" type="submit">BTC-ETH</button>
+                <button name="BTC-ZEC" value="ZEC" type="submit">BTC-ZEC</button>
+                <button name="BTC-XRP" value="XRP" type="submit">BTC-XRP</button>
+                <button name="BTC-LTC" value="LTC" type="submit">BTC-LTC</button>
+                <button name="BTC-XMR" value="XMR" type="submit">BTC-XMR</button>
+                <button name="BTC-ETC" value="ETC" type="submit">BTC-ETC</button>
+              </div>
               <table className="outerTable">
                 <thead>
                   <tr>
@@ -290,7 +298,7 @@ class CryptoMatrix extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }

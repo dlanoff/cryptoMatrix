@@ -10,7 +10,6 @@ export class Nav extends Component {
         this.state = {
             crypto: []
         }
-
     }
     async componentDidMount() {
         this.props.getMarquee()
@@ -29,11 +28,11 @@ export class Nav extends Component {
                             return (
                                 <div className="innerMarquee">
                                     <div>{el.name}</div>
+                                    <div id="blue">${Number(el.price_usd).toFixed(2)}</div>
                                     <div className={Number(el.percent_change_24h) > 0 ? 'green' : 'red'}>{Number(el.percent_change_24h).toFixed(2)}%</div>
                                 </div>
                             )
                         })}
-
                     </div>
                 </nav>
             </div>
