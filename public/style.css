@@ -39,7 +39,7 @@ nav {
   padding: 15px;
   border-bottom: 1px solid white;
   font-size: .92em;
-
+  width:100%;
 
 }
 
@@ -67,7 +67,7 @@ table {
 }
 
 .outerTable {
-  width: 40%;
+  width: 30%;
   /*margin-left: 10%; */
 }
 
@@ -142,7 +142,7 @@ table td th {
   padding-left: 5%;
   padding-top: 2%;
   padding-bottom: 2%;
-
+  width: auto;
 
 }
 
@@ -201,7 +201,7 @@ border-radius: 15px;
 
 Button {
   background-color: rgb(0, 0, 0); /* Green */
-  border: 1px solid rgb(0, 255, 0);
+  border: 1px solid rgb(43, 146, 255);
   color: white;
   padding: 15px 32px;
   text-align: center;
@@ -215,5 +215,5 @@ Button {
 
 
 .btn-group Button:hover {
-  background-color: #3e8e41;
+  background-color:rgb(50, 190, 255);
 }

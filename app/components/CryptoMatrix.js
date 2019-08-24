@@ -284,7 +284,7 @@ class CryptoMatrix extends Component {
           </div>
         </div>
 
-        <br></br>
+
         <div className="bodyElem" id="interexchange">
           <AskBidSpread currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
         </div>
