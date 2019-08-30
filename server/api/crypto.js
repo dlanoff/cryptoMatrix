@@ -24,6 +24,7 @@ router.get("/binance/:pair", async (req, res, next) => {
     // console.log(newData, "!!!!!!!!!!!!!!!!");
     res.send(newData);
   } catch (error) {
+    res.send(null)
     next(error);
   }
 });
@@ -37,6 +38,7 @@ router.get("/kraken/:pair", async (req, res, next) => {
     const newData = { ask: data.result[`X${pair}XXBT`].a[0], bid: data.result[`X${pair}XXBT`].b[0] }
     res.send(newData);
   } catch (error) {
+    res.send(null)
     next(error);
   }
 });
@@ -55,6 +57,7 @@ router.get("/bittrex/:pair", async (req, res, next) => {
     // console.log("!!!!!!!!!!!!!", newData);
     res.send(newData);
   } catch (error) {
+    res.send(null)
     next(error);
   }
 });
@@ -72,8 +75,8 @@ router.get("/kucoin/:pair", async (req, res, next) => {
     };
     res.send(newData);
   } catch (error) {
+    res.send(null)
     next(error)
-
   }
 });
 //https://poloniex.com/public?command=returnOrderBook&currencyPair=BTC_ETH&depth=1
@@ -91,6 +94,7 @@ router.get("/polo/:pair", async (req, res, next) => {
     };
     res.send(newData);
   } catch (error) {
+    res.send(null)
     next(error)
   }
 });

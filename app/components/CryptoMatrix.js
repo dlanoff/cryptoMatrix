@@ -37,7 +37,8 @@ class CryptoMatrix extends Component {
     clearInterval(this.state.intervalId)
     this.setState({ value: event.target.value });
     this.setState({ reset: true })
-    console.log('EVENT CHANGE:!!!!!!!!!!!!!!', event, event.target.value)
+    // console.log('EVENT CHANGE:!!!!!!!!!!!!!!', event, event.target.value)
+    console.log('EVENT CHANGE:!!!!!!!!!!!!!!2', this.state.value)
     this.startTimer(true, event.target.value)
   }
 
@@ -81,7 +82,7 @@ class CryptoMatrix extends Component {
       percentDiff = ((1 - (askArr / bidArr)) * 100).toFixed(6)
 
       // console.log('PERCENT DIFF: ', percentDiff, "max Diff", maxDiff, 'bid :', bidArr, 'AAAsk: ', askArr);
-      // console.log('PERCENT DIFF: ', percentDiff, "max Diff", maxDiff, bidArr, 'CURRMIN', currMax, 'CURRMAX');
+      console.log('PERCENT DIFF: ', percentDiff, "max Diff", maxDiff, bidArr, 'CURRMIN', currMax, 'CURRMAX');
     }
 
     return (
@@ -90,12 +91,12 @@ class CryptoMatrix extends Component {
           <div className="bidsAndAsks">
             <div>
               <div className="btn-group" onClick={this.handleChange}>
-                <button name="BTC-ETH" value="ETH" type="submit">BTC-ETH</button>
-                <button name="BTC-ZEC" value="ZEC" type="submit">BTC-ZEC</button>
-                <button name="BTC-XRP" value="XRP" type="submit">BTC-XRP</button>
-                <button name="BTC-LTC" value="LTC" type="submit">BTC-LTC</button>
-                <button name="BTC-XMR" value="XMR" type="submit">BTC-XMR</button>
-                <button name="BTC-ETC" value="ETC" type="submit">BTC-ETC</button>
+                <button className={this.state.value === 'ETH' ? 'activated' : null} name="BTC-ETH" value="ETH" type="submit">BTC-ETH</button>
+                <button className={this.state.value === 'ZEC' ? 'activated' : null} name="BTC-ZEC" value="ZEC" type="submit">BTC-ZEC</button>
+                <button className={this.state.value === 'XRP' ? 'activated' : null} name="BTC-XRP" value="XRP" type="submit">BTC-XRP</button>
+                <button className={this.state.value === 'LTC' ? 'activated' : null} name="BTC-LTC" value="LTC" type="submit">BTC-LTC</button>
+                <button className={this.state.value === 'XMR' ? 'activated' : null} name="BTC-XMR" value="XMR" type="submit">BTC-XMR</button>
+                <button className={this.state.value === 'WAVES' ? 'activated' : null} name="BTC-WAVES" value="WAVES" type="submit">BTC-WAVES</button>
               </div>
               <table className="outerTable">
                 <thead>
@@ -106,20 +107,21 @@ class CryptoMatrix extends Component {
                         <option value="ETH">BTC-ETH</option>
                         <option value="ZEC">BTC-ZEC</option>
                         <option value="XRP">BTC-XRP</option>
-                        <option value="ETC">BTC-ETC</option>
+
                         <option value="XMR">BTC-XMR</option>
+                        <option value="XMR">BTC-WAVES</option>
                       </select>
                       {maxDiff && maxDiff}
                     </th>
-                    <th>BINANCE</th>
-                    <th>KUCOIN</th>
-                    <th>BITTREX</th>
-                    <th>POLONIEX</th>
+                    <th className={currMin && currMin[1] === 'Binance' ? 'highlightBlue' : null}>BINANCE</th>
+                    <th className={currMin && currMin[1] === 'Kucoin' ? 'highlightBlue' : null}>KUCOIN</th>
+                    <th className={currMin && currMin[1] === 'Bittrex' ? 'highlightBlue' : null}>BITTREX</th>
+                    <th className={currMin && currMin[1] === 'Polo' ? 'highlightBlue' : null}>POLONIEX</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>BINANCE</td>
+                    <td className={currMax && currMax[1] === 'Binance' ? 'highlightRed' : null}>BINANCE</td>
 
                     <td className="blackOut">X</td>
 
@@ -127,14 +129,14 @@ class CryptoMatrix extends Component {
                       <table className="inner">
                         <thead>
                           <tr>
-                            <th>Bid Binance: {binance && binance.bid}</th>
+                            <th>Bid Binance: {binance ? binance.bid : 'NOT FOUND'}</th>
                             <th className="selected">
                               SPREAD:{" "}
                               {binance &&
                                 kucoin &&
                                 (kucoin.bid - binance.ask).toFixed(6)}
                             </th>
-                            <th>Ask kucoin: {kucoin && kucoin.ask}</th>
+                            <th>Ask kucoin: {kucoin ? kucoin.ask : 'NOT FOUND'}</th>
                           </tr>
                         </thead>
                       </table>
@@ -143,14 +145,14 @@ class CryptoMatrix extends Component {
                       <table className="inner">
                         <thead>
                           <tr>
-                            <th>Bid Binance: {binance && binance.bid}</th>
+                            <th>Bid Binance: {binance ? binance.bid : 'NOT FOUND'}</th>
                             <th className="selected">
                               SPREAD:{" "}
                               {binance &&
-                                kucoin &&
+                                bittrex &&
                                 (bittrex.bid - binance.ask).toFixed(6)}
                             </th>
-                            <th>Ask bittrex: {bittrex && bittrex.ask}</th>
+                            <th>Ask bittrex: {bittrex ? bittrex.ask : 'NOT FOUND'}</th>
                           </tr>
                         </thead>
                       </table>
@@ -159,27 +161,27 @@ class CryptoMatrix extends Component {
                       <table className="inner">
                         <thead>
                           <tr>
-                            <th>Bid Binance: {binance && binance.bid}</th>
+                            <th>Bid Binance: {binance ? binance.bid : 'NOT FOUND'}</th>
                             <th className="selected">
                               SPREAD:{" "}
                               {binance &&
                                 kucoin &&
                                 (polo.bid - binance.ask).toFixed(6)}
                             </th>
-                            <th>Ask polo: {polo && polo.ask}</th>
+                            <th>Ask polo: {polo ? polo.ask : 'NOT FOUND'}</th>
                           </tr>
                         </thead>
                       </table>
                     </td>
                   </tr>
                   <tr>
-                    <td>KUCOIN</td>
+                    <td className={currMax && currMax[1] === 'Kucoin' ? 'highlightRed' : null}>KUCOIN</td>
                     <td>
                       <table className="inner">
                         <thead>
                           <tr>
-                            <th>Bid Ku: {kucoin && kucoin.bid}</th>
-                            <th>Ask Binance: {binance && binance.ask}</th>
+                            <th>Bid Ku: {kucoin ? kucoin.bid : 'NOT FOUND'}</th>
+                            <th>Ask Binance: {binance ? binance.ask : 'NOT FOUND'}</th>
                           </tr>
                         </thead>
                       </table>
@@ -189,8 +191,8 @@ class CryptoMatrix extends Component {
                       <table className="inner">
                         <thead>
                           <tr>
-                            <th>Bid Ku: {kucoin && kucoin.bid}</th>
-                            <th>Ask Bittrex: {bittrex && bittrex.ask}</th>
+                            <th>Bid Ku: {kucoin ? kucoin.bid : 'NOT FOUND'}</th>
+                            <th>Ask Bittrex: {bittrex ? bittrex.ask : 'NOT FOUND'}</th>
                           </tr>
                         </thead>
                       </table>
@@ -199,21 +201,21 @@ class CryptoMatrix extends Component {
                       <table className="inner">
                         <thead>
                           <tr>
-                            <th>Bid Ku: {kucoin && kucoin.bid}</th>
-                            <th>Ask Polo: {polo && polo.ask}</th>
+                            <th>Bid Ku: {kucoin ? kucoin.bid : 'NOT FOUND'}</th>
+                            <th>Ask Polo: {polo ? polo.ask : 'NOT FOUND'}</th>
                           </tr>
                         </thead>
                       </table>
                     </td>
                   </tr>
                   <tr>
-                    <td>BITTREX</td>
+                    <td className={currMax && currMax[1] === 'Bittrex' ? 'highlightRed' : null}>BITTREX</td>
                     <td>
                       <table className="inner">
                         <thead>
                           <tr>
-                            <th>Bid Bittrex: {bittrex && bittrex.bid}</th>
-                            <th>Ask Binance: {binance && binance.ask}</th>
+                            <th>Bid Bittrex: {bittrex ? bittrex.bid : 'NOT FOUND'}</th>
+                            <th>Ask Binance: {binance ? binance.ask : 'NOT FOUND'}</th>
                           </tr>
                         </thead>
                       </table>
@@ -222,8 +224,8 @@ class CryptoMatrix extends Component {
                       <table className="inner">
                         <thead>
                           <tr>
-                            <th>Bid Bittrex: {bittrex && bittrex.bid}</th>
-                            <th>Ask Kucoin: {kucoin && kucoin.ask}</th>
+                            <th>Bid Bittrex: {bittrex ? bittrex.bid : 'NOT FOUND'}</th>
+                            <th>Ask Kucoin: {kucoin ? kucoin.ask : 'NOT FOUND'}</th>
                           </tr>
                         </thead>
                       </table>
@@ -233,21 +235,21 @@ class CryptoMatrix extends Component {
                       <table className="inner">
                         <thead>
                           <tr>
-                            <th>Bid Bittrex: {bittrex && bittrex.bid}</th>
-                            <th>Ask Polo: {polo && polo.ask}</th>
+                            <th>Bid Bittrex: {bittrex ? bittrex.bid : 'NOT FOUND'}</th>
+                            <th>Ask Polo: {polo ? polo.ask : 'NOT FOUND'}</th>
                           </tr>
                         </thead>
                       </table>
                     </td>
                   </tr>
                   <tr>
-                    <td>POLONIEX</td>
+                    <td className={currMax && currMax[1] === 'Polo' ? 'highlightRed' : null}>POLONIEX</td>
                     <td>
                       <table className="inner">
                         <thead>
                           <tr>
-                            <th>Bid polo: {polo && polo.bid}</th>
-                            <th>Ask Bi: {binance && binance.ask}</th>
+                            <th>Bid polo: {polo ? polo.bid : 'NOT FOUND'}</th>
+                            <th>Ask Bi: {binance ? binance.ask : 'NOT FOUND'}</th>
                           </tr>
                         </thead>
                       </table>
@@ -256,8 +258,8 @@ class CryptoMatrix extends Component {
                       <table className="inner">
                         <thead>
                           <tr>
-                            <th>Bid polo: {polo && polo.bid}</th>
-                            <th>Ask Ku: {kucoin && kucoin.ask}</th>
+                            <th>Bid polo: {polo ? polo.bid : 'NOT FOUND'}</th>
+                            <th>Ask Ku: {kucoin ? kucoin.ask : 'NOT FOUND'}</th>
                           </tr>
                         </thead>
                       </table>
@@ -266,8 +268,8 @@ class CryptoMatrix extends Component {
                       <table className="inner">
                         <thead>
                           <tr>
-                            <th>Bid polo: {polo && polo.bid}</th>
-                            <th>Ask bittrex: {bittrex && bittrex.ask}</th>
+                            <th>Bid polo: {polo ? polo.bid : 'NOT FOUND'}</th>
+                            <th>Ask bittrex: {bittrex ? bittrex.ask : 'NOT FOUND'}</th>
                           </tr>
                         </thead>
                       </table>
@@ -277,7 +279,7 @@ class CryptoMatrix extends Component {
                 </tbody>
               </table>
             </div>
-            <div>
+            <div className='quickInfo'>
               <Info currMin={currMin} currMax={currMax} max={maxDiff} percent={percentDiff} pair={this.state.value} reset={this.state.reset} />
 
             </div>

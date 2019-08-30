@@ -11,7 +11,7 @@ export default class Info extends Component {
 
     }
     render() {
-        // console.log('INFO COMPONENT PROPS', this.props)
+        console.log('INFO COMPONENT PROPS', this.props)
 
         return (
             <div>

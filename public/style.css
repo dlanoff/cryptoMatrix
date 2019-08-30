@@ -67,8 +67,17 @@ table {
 }
 
 .outerTable {
-  width: 30%;
+  width: 600px;
   /*margin-left: 10%; */
+}
+
+.quickInfo{
+  padding: 10px;
+  border: 1px solid #000000;
+  margin: 10px;
+  text-align: left;
+  height: 200px;
+  width: 250px;
 }
 
 table .inner {
@@ -210,10 +219,48 @@ Button {
   font-size: 13px;
   cursor: pointer;
   float: left;
-  
+  outline: none;
+}
+
+.activated{
+  background-color:rgb(50, 190, 255);
+
 }
 
 
 .btn-group Button:hover {
   background-color:rgb(50, 190, 255);
+}
+
+
+.highlightBlue{
+  animation: pulseblue 1.25s;
+  animation-iteration-count: 2;
+  border: 3px solid rgb(83, 255, 68);
+}
+
+.highlightRed {
+  animation: pulsered 1.25s;
+  animation-iteration-count: 2;
+  border: 3px solid rgb(255, 0, 0);
+}
+
+@keyframes pulsered {
+  0% {
+    border: 3px solid rgb(255, 0, 0);
+  }
+  100% {
+    border: 3px solid rgb(0, 0, 0);
+
+  }
+}
+
+
+@keyframes pulseblue {
+  0% {
+  border: 3px solid rgb(83, 255, 68);
+  }
+  100% {
+    border: 3px solid rgb(0, 0, 0);
+  }
 }
