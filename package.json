@@ -25,7 +25,7 @@
     "chalk": "^2.4.1",
     "echarts": "^4.2.1",
     "echarts-for-react": "^2.0.15-beta.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "fs": "0.0.1-security",
     "lodash": "^4.17.11",
     "pg": "^7.4.3",
